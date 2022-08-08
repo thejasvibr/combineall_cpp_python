@@ -52,22 +52,26 @@ int searchResult(std::vector<int> in_v, int k){
   @param l    The current solution set.
   @return Nvl Compatible solution set. 
   **/
-std::vector<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::vector<int> V_t, std::vector<int> l){
+std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, std::set<int> l){
 		int index;
-		std::vector<int> Nvl;
+		std::set<int> Nvl;
 		if (l.empty()==true){
-			Nvl = V_t;}
+			for (auto ii : V_t){
+				Nvl.insert(ii);
+				}
+		}
 		else{
 			for (int v : V_t){
 				for (int u : l){
 					if (Acc[v][u]==1){
-						Nvl.push_back(v);
+						Nvl.insert(v);
 					}
 					else if(Acc[v][u]==-1){
-						/*find where v is in Nvl*/
+						/*find where v is in Nvl
 						index = searchResult(Nvl, v);
-						/*and eliminate it from Nvl*/
-						Nvl.erase(Nvl.begin()+index);
+						and eliminate it from Nvl
+						Nvl.erase(Nvl.begin()+index);*/
+						Nvl.erase(v);
 					}
 				}
 			}
