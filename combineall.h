@@ -45,6 +45,7 @@ std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, st
 
 }
 
+
 std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, std::set<int> l){
 		//int index;
 		std::set<int> N_not_vl;
@@ -91,12 +92,9 @@ std::vector<std::set<int> > combine_all(std::vector<std::vector<int> > &Acc, std
 			temp_set = {n};
 			Vx = diff_set(V, temp_set);
 			lx = union_set(l, temp_set);
-			for (auto k : Vx){
-				std::cout << "Vx components " << k << std::endl;
-				} 
 			current_solution = combine_all(Acc, Vx, lx, X);
 			if (!current_solution.empty()){
-				for (auto each : current_solution){
+				for (std::set each : current_solution){
 					solutions_l.push_back(each);
 				}
 			
