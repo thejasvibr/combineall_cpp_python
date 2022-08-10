@@ -10,6 +10,9 @@ are ``` [0,2,4]``` and ```[0,3,4]```.
 The compatibility-conflict graph holds the pair-wise in/compatibility with entries of
 +/- 1. +1 indicates compatibility and -1 indicated incompatibility. 
 
+Reference : Kreissig & Yang 2013, Fast and reliable TDOA assignment in multi-source reverberant environments, ICASSP 2013
+  paper link](https://ieeexplore.ieee.org/abstract/document/6637668?casa_token=3oKOQUJRuWQAAAAA:JNbwI-gf0m0ozfAKbAQJzblq8qE-NPTJ49hgJILMxG_2ZM9MJOt4PQOvPEQn9TXJZSzD_ON6YA)
+
 ## Help with optimisation
 ```Combine All``` takes ~1 second for 40x40 matrices already. The final use-case is 
 to have matrices of ~200-300 rows and columns. Previous experiments showed that 
