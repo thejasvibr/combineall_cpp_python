@@ -98,12 +98,12 @@ std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, const std::set<in
   @solutions_l All possible vertex combinations that are compatible with each other.
   **/
 
-std::vector<std::vector<int>> combine_all(std::vector<std::vector<int> > &Acc, std::set<int> V, const std::set<int>& l, std::set<int> X){
+std::vector<std::set<int>> combine_all(std::vector<std::vector<int> > &Acc, std::set<int> V, const std::set<int>& l, std::set<int> X){
 	std::set<int> Nvl, N_not_vl;
 	std::vector<std::set<int> > solutions_l;
 	std::set<int> Nvl_wo_X, Vx;
 	std::set<int> temp_set, lx;
-	std::vector<std::vector<int> > current_solution;
+	std::vector<std::set<int> > current_solution;
 
 	Nvl = get_Nvl(Acc, V, l);
 	N_not_vl = get_not_Nvl(Acc, V, l);
