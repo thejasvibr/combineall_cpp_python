@@ -30,8 +30,8 @@ doesn't really change timing a lot for larger matrices.
 	
 ## Dependencies
 
-* Python : only external dependency is ```nump```
-* C++ : No external dependency. 
+* Python : only external dependency is ```numpy```
+* C++ : No external dependency. Code was compiled with ```g++ checking_combineall.cpp combineall.h -o combineall_cpp ```
 
 All code has been run on a Win 10. Python 3.8 installation. C++ code compiled with 
 MinGW.
