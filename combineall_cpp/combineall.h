@@ -1,20 +1,22 @@
 /*
-CombineAll is a routine which solves a 'compatibility' problem. 
+CombineAll is a routine which solves a 'compatibility' problem.
 Essentially there are multiple vertices in a graph that are either compatible
 or not with each other. CombineAll finds all possible combinations of 
 vertices that are compatible with each other. The compatibility/conflict between
 vertices is represented as a 2D matrix with +1 for compatibility and -1 for 
 conflict (and 0's to indicate NAs). 
 
-
-
+Reference
+---------
+* Kreissig & Yang 2013, Fast and reliable TDOA assignment in multi-source reverberant environments, ICASSP 2013
+  https://ieeexplore.ieee.org/abstract/document/6637668?casa_token=3oKOQUJRuWQAAAAA:JNbwI-gf0m0ozfAKbAQJzblq8qE-NPTJ49hgJILMxG_2ZM9MJOt4PQOvPEQn9TXJZSzD_ON6YA
 */
 
 #include <iostream>
 #include <set>
 #include <vector>
 #include <algorithm>
-#include "set_operations.cpp" // diff_set and union_set set operations defined here
+#include "set_operations.h" // diff_set and union_set set operations defined here
 
 /**
   Gets compatible neighbours 
@@ -54,7 +56,7 @@ std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, st
 
 
 /**
-  Gets compatible neighbours 
+  Gets INcompatible neighbours 
 
   @param Acc  The Compatibility-Conflict graph. 
   @param V_t  The set of vertices available, (V tilde). 

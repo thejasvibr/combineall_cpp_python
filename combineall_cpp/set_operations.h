@@ -1,3 +1,5 @@
+/*Wrapper that implements set operations.
+*/
 #include <algorithm>
 #include <set>
 #include <iostream>

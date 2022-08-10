@@ -1,4 +1,6 @@
-/*Code which checks to see if the combineall functions work*/
+/*Checks to see if the combineall functions work, 
+and implements the 'known' + 'large' matrix cases.
+*/
 #include <iostream>
 #include <vector>
 #include <set>
