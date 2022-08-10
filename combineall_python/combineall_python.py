@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # Also create a 40x40 compatibility-conflict graph randomly and test 
     # for performance.
     np.random.seed(78464)
-    n_nodes = 40
+    n_nodes = 300
     big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
     big_A = np.zeros((n_nodes,n_nodes))
     rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)
@@ -135,9 +135,17 @@ if __name__ == '__main__':
             big_A[i,j] = big_A_values[counter]
             counter += 1
     big_A += big_A.T # make symmetrical
+    flat_A = big_A.flatten()
+    # try reconstructing to understand. 
+    np.savetxt('flatA.txt', flat_A, delimiter=',', fmt='%i')
+    np.savetxt('../combineall_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
+    
+    #%%
     # Now run and test for performance 
     start = time.perf_counter_ns()
     [combine_all(big_A, set(range(n_nodes)), set([]), set([])) for ii in range(2)]
     stop = time.perf_counter_ns()
     print(f'Duration per run 40x40 : {(stop-start)/1e9/2} s')
+    #%%
+            
     
