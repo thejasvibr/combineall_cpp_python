@@ -6,6 +6,7 @@ and implements the 'known' + 'large' matrix cases.
 #include <set>
 #include <chrono>
 #include "combineall.h"
+#include "timer.h"
 
 void check_getnvl_works(){
 	std::vector<std::vector<int> > acc{{1,1,1},{1,1,1},{1,1,1}};
@@ -123,7 +124,7 @@ void check_combine_all_big(){
 	for (int k=0; k<20; k++){
 		V_t.insert(k);
 		}
-	for (int i=0; i<20; i++){
+	for (int i=0; i<100; i++){
 		solution = combine_all(acc, V_t, ll, X);
 	}
 }
@@ -132,10 +133,13 @@ void check_combine_all_big(){
 int main(){
 	// Run the 'small' 6 node case
 	std::cout << "Repeat 6 node case 100 times..." << std::endl;
-	check_combine_all_full(100); // Repeat the case described in the paper 100 times.
-	std::cout << "Done with 100 reps of 6 node case" << std::endl;
+	int nruns = 100;
+	Timer timer1;
+	check_combine_all_full(nruns); // Repeat the case described in the paper 100 times.
+	std::cout << "Done with 100 reps of 6 node case" << timer1.elapsed()<< "s for 100 runs" << std::endl;
 	// Run the 'big' 20 node case
 	std::cout << "Running 20 node case once" << std::endl;
+	Timer timer2;
 	check_combine_all_big();
-	std::cout << "Done running 20 node case ..." << std::endl;
+	std::cout << "Done running 20 node case ..." << timer2.elapsed() <<" s" << std::endl;
 }
