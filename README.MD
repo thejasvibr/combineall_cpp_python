@@ -10,16 +10,18 @@ are ``` [0,2,4]``` and ```[0,3,4]```.
 The compatibility-conflict graph holds the pair-wise in/compatibility with entries of
 +/- 1. +1 indicates compatibility and -1 indicated incompatibility. 
 
-Reference : Kreissig & Yang 2013, Fast and reliable TDOA assignment in multi-source reverberant environments, ICASSP 2013
+Reference : 
+* Kreissig & Yang 2013, Fast and reliable TDOA assignment in multi-source reverberant environments, ICASSP 2013
   [paper link](https://ieeexplore.ieee.org/abstract/document/6637668?casa_token=3oKOQUJRuWQAAAAA:JNbwI-gf0m0ozfAKbAQJzblq8qE-NPTJ49hgJILMxG_2ZM9MJOt4PQOvPEQn9TXJZSzD_ON6YA)
+* The [Code Review Stack Exchange post](https://codereview.stackexchange.com/questions/278668/optimising-compatibility-conflict-graph-solution-python-recursive-routine)
 
 ## Help with optimisation
 ```Combine All``` takes ~1 second for 40x40 matrices already. The final use-case is 
 to have matrices of ~200-300 rows and columns. Previous experiments showed that 
-200-300 rows could take ~12 hours to run - which is infeasible. 
+200-300 rows could take ~12 hours to run which is infeasible. 
 
 As of now both the Cpp and Python implementations run at around the same speed. 
-The Cpp can be sped up about 1.5-2 X the Python one using compiler flags - but this
+The Cpp can be sped up about 1.5-2 times the Python one using compiler flags - but this
 doesn't really change timing a lot for larger matrices. 
 
 ## Questions
