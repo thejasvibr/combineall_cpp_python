@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # Also create a 40x40 compatibility-conflict graph randomly and test 
     # for performance.
     np.random.seed(78464)
-    n_nodes = 300
+    n_nodes = 100
     big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
     big_A = np.zeros((n_nodes,n_nodes))
     rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)

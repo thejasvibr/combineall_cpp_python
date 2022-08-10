@@ -7,11 +7,7 @@ and implements the 'known' + 'large' matrix cases.
 #include <set>
 #include <chrono>
 #include "combineall.h"
-<<<<<<< HEAD
-#include "timer.h"
-=======
 #include "Timer.h"
->>>>>>> tristan_optims
 
 void check_getnvl_works(){
 	std::vector<std::vector<int> > acc{{1,1,1},{1,1,1},{1,1,1}};
@@ -128,13 +124,8 @@ void check_combine_all_big(){
 	
 	for (int k=0; k<20; k++) {
 		V_t.insert(k);
-<<<<<<< HEAD
 		}
 	for (int i=0; i<100; i++){
-=======
-	}
-	for (int i=0; i<20; i++) {
->>>>>>> tristan_optims
 		solution = combine_all(acc, V_t, ll, X);
 	}
 }
@@ -147,7 +138,7 @@ void check_combine_very_big(){
 	std::set<int> ll;
 	std::set<int> X;
 	std::vector<std::set<int> > solution;
-	int num_rows = 300;
+	int num_rows = 100;
 	std::vector<std::vector<int> > acc;
 	int num_entries = num_rows*num_rows;
 	int ij_index = 0;
