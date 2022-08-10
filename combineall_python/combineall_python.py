@@ -46,24 +46,6 @@ def get_Nvl(Acc, V_t, l):
     else:
         return V_t
 
-def get_Nvl_fast(Acc, V_t, l):
-    '''version based on - Reinderien: 
-        https://codereview.stackexchange.com/a/278680/263672
-    '''
-    if len(l) < 1:
-        return V_t
-
-    Nvl = set()
-    for v in V_t:
-        for u in l:
-            a = Acc[v, u]
-            if a == 1:
-                Nvl.add(v)
-            elif a == -1:
-                Nvl.discard(v)
-    return Nvl
-
-
 def get_NOT_Nvl(Acc:np.array, V:set, l:set):
     N_not_vl = []
     if len(l)>0:
@@ -77,29 +59,6 @@ def get_NOT_Nvl(Acc:np.array, V:set, l:set):
     else:
         N_not_vl = []
     return set(N_not_vl)
-
-def flatten_combine_all(entry):
-    if isinstance(entry, list):
-        if len(entry)==1:
-            return flatten_combine_all(entry[0])
-        else:
-            return list(map(flatten_combine_all, entry))
-    elif isinstance(entry, set):
-        return entry
-    else:
-        raise ValueError(f'{entry} can only be set or list')
-
-def format_combineall(output):
-    semiflat = flatten_combine_all(output)
-    only_sets = []
-    for each in semiflat:
-        if isinstance(each, list):
-            for every in each:
-                if isinstance(every, set):
-                    only_sets.append(every)
-        elif isinstance(each, set):
-            only_sets.append(each)
-    return only_sets
 
 def combine_all(Acc, V, l, X):
     '''
@@ -120,7 +79,7 @@ def combine_all(Acc, V, l, X):
     '''
     # determine N_v(l) and !N_v(l)
     # !N_v(l) are the vertices incompatible with the current solution
-    N_vl = get_Nvl_fast(Acc, V, l)
+    N_vl = get_Nvl(Acc, V, l)
     N_not_vl = get_NOT_Nvl(Acc, V, l)
     #print(f'l:{l}, X:{X}, V:{V}, N_vl:{N_vl}, N_notvl:{N_not_vl}')
     solutions_l = []
@@ -160,7 +119,7 @@ if __name__ == '__main__':
     start = time.perf_counter_ns()
     [ combine_all(A, set(range(6)), set([]), set([])) for i in range(10**2)]
     stop = time.perf_counter_ns()
-    print(f'Duration per run: {(stop-start)/1e9/10**2} s')
+    print(f'Duration per run 6x6 : {(stop-start)/1e9/10**2} s')
     
     #%%
     # Also create a 40x40 compatibility-conflict graph randomly and test 
@@ -180,5 +139,5 @@ if __name__ == '__main__':
     start = time.perf_counter_ns()
     [combine_all(big_A, set(range(n_nodes)), set([]), set([])) for ii in range(2)]
     stop = time.perf_counter_ns()
-    print(f'Duration per run: {(stop-start)/1e9/2} s')
+    print(f'Duration per run 40x40 : {(stop-start)/1e9/2} s')
     
