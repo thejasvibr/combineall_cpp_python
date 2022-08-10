@@ -2,6 +2,7 @@
 and implements the 'known' + 'large' matrix cases.
 */
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <set>
 #include <chrono>
@@ -130,6 +131,68 @@ void check_combine_all_big(){
 }
 
 
+
+/* Big matrix case to check effect of optimisation*/
+void check_combine_very_big(){
+	std::set<int> V_t;
+	std::set<int> ll;
+	std::set<int> X;
+	std::vector<std::set<int> > solution;
+	int num_rows = 300;
+	std::vector<std::vector<int> > acc;
+	int num_entries = num_rows*num_rows;
+	int ij_index = 0;
+	std::vector<int> temp_row;
+	std::cout << num_entries << "unique entries" << std::endl;
+	
+	// https://stackoverflow.com/a/28312037/4955732
+	int data[num_entries];
+	std::ifstream input("flatA.txt");
+	
+	for (int i = 0; i < num_entries; i++) {
+        input >> data[i];
+        //std::cout<< data[i]<<std::endl;
+        }
+
+	// and now assign each row as it comes
+	std::cout<<"Miaow miaow" <<"\n";
+	for (int i=0; i<num_rows; i++){
+		for (int j=0; j<num_rows; j++){
+			
+			if (i<1){
+				//acc.push_back(data[j]);
+				temp_row.push_back(data[j]);
+				//std::cout << data[j]<< "\n";
+			}
+			else{
+				//acc[i].push_back(data[((i*num_rows)+j)]);
+				temp_row.push_back(data[((i*num_rows)+j)]);
+				//std::cout << data[(i*num_rows)+j]<< "\n";
+			}
+		}
+		acc.push_back(temp_row);
+		temp_row.clear();	
+	}
+	/*for (auto i=0; i<num_rows; i++){
+		for (auto j=0; j<num_rows; j++){
+			std::cout << i << ":i, j: " << j << " value " << acc[i][j] << "\n";
+	}}*/
+	
+	
+	for (int k=0; k<num_rows; k++) {
+		V_t.insert(k);
+	}
+	
+	/*for (int i=0; i<2; i++) {
+		solution = combine_all(acc, V_t, ll, X);
+	}*/
+	solution = combine_all(acc, V_t, ll, X);
+}
+
+
+
+
+
 int main(){
 	// Run the 'small' 6 node case
 	std::cout << "Repeat 6 node case 100 times..." << std::endl;
@@ -140,4 +203,9 @@ int main(){
 	std::cout << "Running 20 node case once" << std::endl;
 	check_combine_all_big();
 	std::cout << "Done running 20 node case ..." << std::endl;
+	
+	std::cout << "Very large matrix test" << "\n";
+	Timer timer3;
+	check_combine_very_big();
+	std::cout << "Very large matrix tests took:" << timer3.elapsed() << "\n";
 }

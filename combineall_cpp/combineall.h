@@ -125,7 +125,7 @@ std::vector<std::set<int>> combine_all(std::vector<std::vector<int> > &Acc, std:
 				for (std::set each : current_solution){
 					solutions_l.push_back(each);
 				}
-			
+
 			}
 			// build onto set of visited neighbours
 			X.insert(n);
