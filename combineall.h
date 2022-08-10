@@ -1,4 +1,12 @@
 /*
+CombineAll is a routine which solves a 'compatibility' problem. 
+Essentially there are multiple vertices in a graph that are either compatible
+or not with each other. CombineAll finds all possible combinations of 
+vertices that are compatible with each other. The compatibility/conflict between
+vertices is represented as a 2D matrix with +1 for compatibility and -1 for 
+conflict (and 0's to indicate NAs). 
+
+
 
 */
 
@@ -6,10 +14,10 @@
 #include <set>
 #include <vector>
 #include <algorithm>
-#include "sets_tryingout.cpp"
+#include "set_operations.cpp" // diff_set and union_set set operations defined here
 
 /**
-  Mimics the behaviour of get_nvl written in Python. 
+  Gets compatible neighbours 
 
   @param Acc  The Compatibility-Conflict graph. 
   @param V_t  The set of vertices available, (V tilde). 
@@ -42,10 +50,17 @@ std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, st
 			
 			}
 	return Nvl;
-
 }
 
 
+/**
+  Gets compatible neighbours 
+
+  @param Acc  The Compatibility-Conflict graph. 
+  @param V_t  The set of vertices available, (V tilde). 
+  @param l    The current solution set.
+  @return N_not_vl Inompatible vertices.
+  **/
 std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, std::set<int> l){
 		//int index;
 		std::set<int> N_not_vl;
@@ -69,6 +84,17 @@ std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t
 			}
 	return N_not_vl;
 }
+
+
+/**
+  Finds multiple compatible solutions where nodes don't conflict each other.
+
+  @param Acc  The Compatibility-Conflict graph. 
+  @param V_t  The set of vertices available 
+  @param l    The current solution set.
+  @param X    Already visited vertices.
+  @solutions_l All possible vertex combinations that are compatible with each other.
+  **/
 
 std::vector<std::set<int> > combine_all(std::vector<std::vector<int> > &Acc, std::set<int> V, std::set<int> l, std::set<int> X){
 	std::set<int> Nvl, N_not_vl;
@@ -99,6 +125,7 @@ std::vector<std::set<int> > combine_all(std::vector<std::vector<int> > &Acc, std
 				}
 			
 			}
+			// build onto set of visited neighbours
 			X.insert(n);
 		}
 	}
