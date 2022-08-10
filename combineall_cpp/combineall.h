@@ -26,7 +26,7 @@ Reference
   @param l    The current solution set.
   @return Nvl Compatible solution set. 
   **/
-std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, std::set<int> l){
+std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, const std::set<int>& V_t, const std::set<int>& l){
 		int index;
 		std::set<int> Nvl;
 		if (l.empty()==true){
@@ -63,7 +63,7 @@ std::set<int> get_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, st
   @param l    The current solution set.
   @return N_not_vl Inompatible vertices.
   **/
-std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t, std::set<int> l){
+std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, const std::set<int>& V_t, const std::set<int>& l){
 		//int index;
 		std::set<int> N_not_vl;
 		if (l.empty()==true){
@@ -98,12 +98,12 @@ std::set<int> get_not_Nvl(std::vector<std::vector<int> > &Acc, std::set<int> V_t
   @solutions_l All possible vertex combinations that are compatible with each other.
   **/
 
-std::vector<std::set<int> > combine_all(std::vector<std::vector<int> > &Acc, std::set<int> V, std::set<int> l, std::set<int> X){
+std::vector<std::vector<int>> combine_all(std::vector<std::vector<int> > &Acc, std::set<int> V, const std::set<int>& l, std::set<int> X){
 	std::set<int> Nvl, N_not_vl;
 	std::vector<std::set<int> > solutions_l;
 	std::set<int> Nvl_wo_X, Vx;
 	std::set<int> temp_set, lx;
-	std::vector<std::set<int> > current_solution;
+	std::vector<std::vector<int> > current_solution;
 
 	Nvl = get_Nvl(Acc, V, l);
 	N_not_vl = get_not_Nvl(Acc, V, l);
