@@ -6,6 +6,7 @@ and implements the 'known' + 'large' matrix cases.
 #include <vector>
 #include <set>
 #include <chrono>
+#include <cmath>
 #include "combineall.h"
 #include "Timer.h"
 
@@ -128,6 +129,7 @@ void check_combine_all_big(){
 	for (int i=0; i<100; i++){
 		solution = combine_all(acc, V_t, ll, X);
 	}
+	
 }
 
 
@@ -138,20 +140,36 @@ void check_combine_very_big(){
 	std::set<int> ll;
 	std::set<int> X;
 	std::vector<std::set<int> > solution;
-	int num_rows = 150;
+	int num_rows;
 	std::vector<std::vector<int> > acc;
-	int num_entries = num_rows*num_rows;
+	int num_entries; // = num_rows*num_rows;
 	int ij_index = 0;
+	int num_solutions;
 	std::vector<int> temp_row;
 	std::cout << num_entries << "unique entries" << std::endl;
 	
 	// https://stackoverflow.com/a/28312037/4955732
-	int data[num_entries];
-	std::ifstream input("flatA.txt");
 	
+	std::ifstream input("flatA.txt");
+	int count = 0;
+	std::string line;
+	if (input.is_open()){
+		while (!input.eof()){
+			std::getline(input, line);
+			count++;
+		}
+		input.close();
+	}
+	
+	num_entries = count-1;
+	num_rows = (int)std::sqrt(num_entries);
+	std::cout << "Number of entries are: " << num_entries << ". Num rows are:" << num_rows <<" \n";
+	// 
+	int data[num_entries];
+	
+	std::ifstream input2("flatA.txt");
 	for (int i = 0; i < num_entries; i++) {
-        input >> data[i];
-        //std::cout<< data[i]<<std::endl;
+        input2 >> data[i];
         }
 
 	// and now assign each row as it comes
@@ -173,24 +191,35 @@ void check_combine_very_big(){
 		acc.push_back(temp_row);
 		temp_row.clear();	
 	}
-	/*for (auto i=0; i<num_rows; i++){
-		for (auto j=0; j<num_rows; j++){
-			std::cout << i << ":i, j: " << j << " value " << acc[i][j] << "\n";
-	}}*/
-	
+
 	
 	for (int k=0; k<num_rows; k++) {
 		V_t.insert(k);
 	}
-	
-	/*for (int i=0; i<2; i++) {
-		solution = combine_all(acc, V_t, ll, X);
-	}*/
+
+	Timer timer3;
 	solution = combine_all(acc, V_t, ll, X);
+	std::cout << "Very large matrix tests took:" << timer3.elapsed() << "\n";
+	
+	// Begin writing the data
+	num_solutions = solution.size();
+	std::cout << "Number of solutions is: " << num_solutions << "\n";
+	
+	std::ofstream fw("cpp_solutions.csv", std::ofstream::out);
+	if (fw.is_open()){
+		for (auto soln : solution){
+			for (auto every : soln){
+				fw << every << ",";
+			}
+			fw << "\n";
+		}
+	fw.close();
+	}
+	else{
+		std::cout << "Problem with opening file";
+	}
+
 }
-
-
-
 
 
 int main(){
@@ -211,8 +240,8 @@ int main(){
 
 	
 	std::cout << "Very large matrix test" << "\n";
-	Timer timer3;
+	
 	check_combine_very_big();
-	std::cout << "Very large matrix tests took:" << timer3.elapsed() << "\n";
+	
 
 }

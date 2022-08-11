@@ -102,9 +102,21 @@ We see that in C++, unless you specifically pass-by-reference, each function cre
 
 Another aspect that Tristan stressed upon was the compiler optimisation - using the ```-O3``` flag and compiling in 'release mode', e.g. ```-std=c++20``` flag. 
 
+## Comparing Python vs C++ (INCOMPLETE! - THE OUTPUT SOLUTIONS ARE NOT THE SAME!!!)
+After some basic optimisation where do we stand? The difference really starts to come out with the larger matrices (>40 nodes). The input CC matrices were generated randomly and the same matrix was fed to both Python and C++. Wherever possible, the average of multiple runs are reported. All values are rounded up and not exact. The idea is to show the difference in order of magnitude. 	
+
+| # nodes | Python (ms) | C++ (ms) | factor speedup | reported solutions|
+|---------|-------------|----------|----------------|-------------------|
+|  6      | 0.060       |  0.040   |  1.5           |    
+|  12     | 0.800       |  0.2     |  4             | 
+|  24     | 20          |   2      |  10            | 
+|  48     | 4000        |   28     |  ~140          |
+|  96     | (too long?) |  900     | ------------   |
+| 192     | (too long?) | 47000    | ------------   |
 
 
 
+ 
 
 
 

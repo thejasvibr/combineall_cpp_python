@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # Also create a 40x40 compatibility-conflict graph randomly and test 
     # for performance.
     np.random.seed(78464)
-    n_nodes = 150
+    n_nodes = 48
     big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
     big_A = np.zeros((n_nodes,n_nodes))
     rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)
@@ -139,13 +139,22 @@ if __name__ == '__main__':
     # try reconstructing to understand. 
     np.savetxt('flatA.txt', flat_A, delimiter=',', fmt='%i')
     np.savetxt('../combineall_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
-    
+
     #%%
     # Now run and test for performance 
     start = time.perf_counter_ns()
-    [combine_all(big_A, set(range(n_nodes)), set([]), set([])) for ii in range(1)]
+    for ii in range(1):
+        qqr = combine_all(big_A, set(range(n_nodes)), set([]), set([]))
     stop = time.perf_counter_ns()
-    print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/2} s')
-    #%%
+    print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/1} s')
+    print(len(qqr))
+    
+    # Write solution to csv file
+    with open('python_solutions.csv' , 'w') as csvfile:
+        for soln in qqr:
+            for each in soln:
+                csvfile.write(str(each)+',')
+            csvfile.write('\n')
+
             
     
