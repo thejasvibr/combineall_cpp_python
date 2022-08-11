@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # Also create a 40x40 compatibility-conflict graph randomly and test 
     # for performance.
     np.random.seed(78464)
-    n_nodes = 100
+    n_nodes = 150
     big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
     big_A = np.zeros((n_nodes,n_nodes))
     rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)
@@ -143,9 +143,9 @@ if __name__ == '__main__':
     #%%
     # Now run and test for performance 
     start = time.perf_counter_ns()
-    [combine_all(big_A, set(range(n_nodes)), set([]), set([])) for ii in range(2)]
+    [combine_all(big_A, set(range(n_nodes)), set([]), set([])) for ii in range(1)]
     stop = time.perf_counter_ns()
-    print(f'Duration per run 40x40 : {(stop-start)/1e9/2} s')
+    print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/2} s')
     #%%
             
     

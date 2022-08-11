@@ -138,7 +138,7 @@ void check_combine_very_big(){
 	std::set<int> ll;
 	std::set<int> X;
 	std::vector<std::set<int> > solution;
-	int num_rows = 100;
+	int num_rows = 150;
 	std::vector<std::vector<int> > acc;
 	int num_entries = num_rows*num_rows;
 	int ij_index = 0;
