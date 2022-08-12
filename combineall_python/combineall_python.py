@@ -40,7 +40,7 @@ def get_Nvl(Acc, V_t, l):
                 if Acc[v,u]==1:
                     Nvl.append(v)
                 elif Acc[v,u]==-1:
-                    if v in Nvl:
+                    while v in Nvl:
                         Nvl.pop(Nvl.index(v))
         return set(Nvl)
     else:
@@ -54,7 +54,7 @@ def get_NOT_Nvl(Acc:np.array, V:set, l:set):
                 if Acc[v,u]==-1:
                     N_not_vl.append(v)
                 elif Acc[v,u]==1:
-                    if v in N_not_vl:
+                    while v in N_not_vl:
                         N_not_vl.pop(N_not_vl.index(v))
     else:
         N_not_vl = []
@@ -85,12 +85,14 @@ def combine_all(Acc, V, l, X):
     solutions_l = []
     if len(N_vl) == 0:
         solutions_l.append(l)
+        print(l)
     else:
         # remove conflicting neighbour
         V = V.difference(N_not_vl)
         # unvisited compatible neighbours
         Nvl_wo_X = N_vl.difference(X)
         for n in Nvl_wo_X:
+            #print(f'n: {n}')
             Vx = V.difference(set([n]))
             lx = l.union(set([n]))
             solution = combine_all(Acc, Vx, lx, X)
@@ -98,6 +100,7 @@ def combine_all(Acc, V, l, X):
                 for each in solution:
                     solutions_l.append(each)
             X = X.union(set([n]))
+            #print(f'X:{X}')
     return solutions_l
 #%%
 if __name__ == '__main__':
@@ -124,8 +127,9 @@ if __name__ == '__main__':
     #%%
     # Also create a 40x40 compatibility-conflict graph randomly and test 
     # for performance.
-    np.random.seed(78464)
-    n_nodes = 48
+    import pandas as pd
+    np.random.seed(99)
+    n_nodes = 9
     big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
     big_A = np.zeros((n_nodes,n_nodes))
     rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)
@@ -139,13 +143,13 @@ if __name__ == '__main__':
     # try reconstructing to understand. 
     np.savetxt('flatA.txt', flat_A, delimiter=',', fmt='%i')
     np.savetxt('../combineall_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
-
+    pd.DataFrame(big_A).to_csv('../comparing_implementations/big_A.csv')
     #%%
     # Now run and test for performance 
     start = time.perf_counter_ns()
     for ii in range(1):
         qqr = combine_all(big_A, set(range(n_nodes)), set([]), set([]))
-    stop = time.perf_counter_ns()
+    stop = time.perf_counter_ns()   
     print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/1} s')
     print(len(qqr))
     
