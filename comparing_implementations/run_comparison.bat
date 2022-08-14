@@ -2,5 +2,8 @@
 cd ..\\combineall_python\\
 python combineall_python.py
 cd ..\\combineall_cpp\\
-.\a.exe
+.\my_combineall.exe
+cd ..\\martin_kreisssig_cpp\\
+.\kreissig_cpp.exe
 cd ..\\comparing_implementations\\
+

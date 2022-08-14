@@ -114,7 +114,7 @@ After some basic optimisation where do we stand? The difference really starts to
 |  96     | (too long?) |  900     | ------------   |
 | 192     | (too long?) | 47000    | ------------   |
 
-## Moral of the story: when translating code to another language - data structures matter?
+## Moral of the story: when translating code to another language - be extra careful
 
 
 

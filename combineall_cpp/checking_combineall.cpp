@@ -197,6 +197,14 @@ void check_combine_very_big(){
 		V_t.insert(k);
 	}
 
+	// Print out in the input CC graph
+	/*for (auto jj : acc){
+		for (int kk=0; kk<num_rows; kk++){
+			std::cout << jj[kk] << ",";
+		}
+		std::cout << "\n";
+	}*/
+
 	Timer timer3;
 	solution = combine_all(acc, V_t, ll, X);
 	std::cout << "Very large matrix tests took:" << timer3.elapsed() << "\n";

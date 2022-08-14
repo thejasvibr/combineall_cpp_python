@@ -33,32 +33,58 @@ def get_Nvl(Acc, V_t, l):
         Solution of vertices that are compatible to at least one other vertex
         and not in conflict with any of the other vertices.
     '''
-    Nvl = []
+    Nvl = set([])
     if len(l)>0:
         for v in V_t:
             for u in l:
                 if Acc[v,u]==1:
-                    Nvl.append(v)
+                    Nvl.add(v)
                 elif Acc[v,u]==-1:
-                    while v in Nvl:
-                        Nvl.pop(Nvl.index(v))
-        return set(Nvl)
+                    try:
+                        Nvl.discard(v)
+                    except:
+                        pass
+        return Nvl
     else:
         return V_t
 
 def get_NOT_Nvl(Acc:np.array, V:set, l:set):
-    N_not_vl = []
+    N_not_vl = set([])
     if len(l)>0:
         for v in V:
             for u in l:
                 if Acc[v,u]==-1:
-                    N_not_vl.append(v)
+                    N_not_vl.add(v)
                 elif Acc[v,u]==1:
-                    while v in N_not_vl:
-                        N_not_vl.pop(N_not_vl.index(v))
+                        try:
+                            N_not_vl.discard(v)
+                        except:
+                            pass
+    return N_not_vl
+
+def get_Nvl_and_Nnotvl(Acc:np.array, V:set, l:set):
+    '''Function which performs the Nvl and N_not_vl calculation
+    together.
+    '''
+    Nvl, Nnotvl = set([]), set([])
+    if len(l)<1:
+        return V, Nnotvl
     else:
-        N_not_vl = []
-    return set(N_not_vl)
+        for v in V:
+            compatible = False
+            conflict = False
+            for u in l:
+                if Acc[v,u]==-1:
+                    conflict = True
+                elif Acc[v,u]==1:
+                    compatible = True
+            if conflict:
+                Nnotvl.add(v)
+            elif compatible:
+                Nvl.add(v)
+                    
+    return Nvl, Nnotvl
+            
 
 def combine_all(Acc, V, l, X):
     '''
@@ -79,18 +105,20 @@ def combine_all(Acc, V, l, X):
     '''
     # determine N_v(l) and !N_v(l)
     # !N_v(l) are the vertices incompatible with the current solution
-    N_vl = get_Nvl(Acc, V, l)
-    N_not_vl = get_NOT_Nvl(Acc, V, l)
-    #print(f'l:{l}, X:{X}, V:{V}, N_vl:{N_vl}, N_notvl:{N_not_vl}')
+    #N_vl = get_Nvl(Acc, V, l)
+    #N_not_vl = get_NOT_Nvl(Acc, V, l)
+    N_vl, N_not_vl = get_Nvl_and_Nnotvl(Acc, V, l)
+    # print(f'l:{l}, X:{X}, V:{V}, N_vl:{N_vl}, N_notvl:{N_not_vl}, X:{X}')
     solutions_l = []
     if len(N_vl) == 0:
         solutions_l.append(l)
-        print(l)
+        #print(l)
     else:
         # remove conflicting neighbour
         V = V.difference(N_not_vl)
         # unvisited compatible neighbours
         Nvl_wo_X = N_vl.difference(X)
+        #print(f'   Vdiff: {V}, NvlwoX: {Nvl_wo_X}')
         for n in Nvl_wo_X:
             #print(f'n: {n}')
             Vx = V.difference(set([n]))
@@ -128,8 +156,8 @@ if __name__ == '__main__':
     # Also create a 40x40 compatibility-conflict graph randomly and test 
     # for performance.
     import pandas as pd
-    np.random.seed(99)
-    n_nodes = 9
+    np.random.seed(300)
+    n_nodes = 10
     big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
     big_A = np.zeros((n_nodes,n_nodes))
     rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)
@@ -143,10 +171,12 @@ if __name__ == '__main__':
     # try reconstructing to understand. 
     np.savetxt('flatA.txt', flat_A, delimiter=',', fmt='%i')
     np.savetxt('../combineall_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
+    np.savetxt('../martin_kreisssig_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
     pd.DataFrame(big_A).to_csv('../comparing_implementations/big_A.csv')
     #%%
     # Now run and test for performance 
     start = time.perf_counter_ns()
+    print('\n    Starting big A run....\n')
     for ii in range(1):
         qqr = combine_all(big_A, set(range(n_nodes)), set([]), set([]))
     stop = time.perf_counter_ns()   

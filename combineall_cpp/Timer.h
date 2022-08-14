@@ -1,6 +1,6 @@
 #ifndef M_TIMER_H
 #define M_TIMER_H
-
+// Written by Tristan Walter.
 #include <chrono>
 
 class Timer
