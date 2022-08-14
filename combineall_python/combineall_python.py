@@ -151,34 +151,16 @@ if __name__ == '__main__':
     [ combine_all(A, set(range(6)), set([]), set([])) for i in range(10**2)]
     stop = time.perf_counter_ns()
     print(f'Duration per run 6x6 : {(stop-start)/1e9/10**2} s')
-    
     #%%
-    # Also create a 40x40 compatibility-conflict graph randomly and test 
-    # for performance.
-    import pandas as pd
-    np.random.seed(300)
-    n_nodes = 10
-    big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
-    big_A = np.zeros((n_nodes,n_nodes))
-    rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)
-    counter = 0
-    for i,j in zip(rows_lowertri, cols_lowertri):
-        if not i==j:
-            big_A[i,j] = big_A_values[counter]
-            counter += 1
-    big_A += big_A.T # make symmetrical
-    flat_A = big_A.flatten()
-    # try reconstructing to understand. 
-    np.savetxt('flatA.txt', flat_A, delimiter=',', fmt='%i')
-    np.savetxt('../combineall_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
-    np.savetxt('../martin_kreisssig_cpp/flatA.txt', flat_A, delimiter=',', fmt='%i')
-    pd.DataFrame(big_A).to_csv('../comparing_implementations/big_A.csv')
+    # Load the bigA matrix
+    big_CC = np.loadtxt('bigA.txt', delimiter=',')
     #%%
     # Now run and test for performance 
     start = time.perf_counter_ns()
     print('\n    Starting big A run....\n')
+    n_nodes = big_CC.shape[0]
     for ii in range(1):
-        qqr = combine_all(big_A, set(range(n_nodes)), set([]), set([]))
+        qqr = combine_all(big_CC, set(range(n_nodes)), set([]), set([]))
     stop = time.perf_counter_ns()   
     print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/1} s')
     print(len(qqr))
