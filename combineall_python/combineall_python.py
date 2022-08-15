@@ -150,7 +150,7 @@ if __name__ == '__main__':
     start = time.perf_counter_ns()
     [ combine_all(A, set(range(6)), set([]), set([])) for i in range(10**2)]
     stop = time.perf_counter_ns()
-    print(f'Duration per run 6x6 : {(stop-start)/1e9/10**2} s')
+    # print(f'Duration per run 6x6 : {(stop-start)/1e9/10**2} s')
     #%%
     # Load the bigA matrix
     big_CC = np.loadtxt('bigA.txt', delimiter=',')

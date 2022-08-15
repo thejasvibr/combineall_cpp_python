@@ -4,7 +4,7 @@
 #include <set>
 #include <iostream>
 
-template<typename T>
+/*template<typename T>
 struct UnorderedVectorSet {
     using iterator = typename std::vector<T>::iterator;
     using const_iterator = typename std::vector<T>::const_iterator;
@@ -64,7 +64,7 @@ struct UnorderedVectorSet {
     auto end() const { return _data.end(); }
     size_t size() const { return _data.size(); }
     bool empty() const { return _data.empty(); }
-};
+};*/
 
 std::set<int> diff_set(const std::set<int>& A, const std::set<int>& B){
 	std::set<int> difference;

@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 np.random.seed(300)
-n_nodes = 200
+n_nodes = 150
 big_A_values = np.random.choice([-1,1],int((n_nodes*n_nodes-1)/2))
 big_A = np.zeros((n_nodes,n_nodes))
 rows_lowertri, cols_lowertri = np.tril_indices(n_nodes)

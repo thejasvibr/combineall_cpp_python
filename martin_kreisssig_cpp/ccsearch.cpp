@@ -228,15 +228,10 @@ void check_ky2013_example(){
 	// 
 	cCCSearch uu;
 	//uu.adjM = acc;
-	Timer timer4;
+	// Timer timer4;
 	uu.findCCIS(acc);
-	std::cout << "Kreissig version took:" << timer4.elapsed() << " s"<< "\n";
-	/*for (auto ii : uu.solution_set){
-		std::cout << "soln start: " << std::endl;
-		for (auto jj : ii){
-			std::cout << jj << "\n";
-		}
-	}*/
+	//std::cout << "Kreissig version took:" << timer4.elapsed() << " s"<< "\n";
+	
 }
 
 int main(){

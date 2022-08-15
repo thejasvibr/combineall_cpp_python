@@ -26,7 +26,7 @@ void check_kreissig_bigmat(){
 	
 	num_entries = count-1;
 	num_rows = (int)std::sqrt(num_entries);
-	std::cout << "Number of entries are: " << num_entries << ". Num rows are:" << num_rows <<" \n";
+	std::cout << "Number of entries are: " << num_entries << ". Num rows are:" << num_rows <<std::endl;
 	// 
 	int data[num_entries];
 	
@@ -36,19 +36,19 @@ void check_kreissig_bigmat(){
         }
 
 	// and now assign each row as it comes
-	std::cout<<"Miaow miaow" <<"\n";
+	std::cout<<"Miaow miaow" <<std::endl;
 	for (int i=0; i<num_rows; i++){
 		for (int j=0; j<num_rows; j++){
 			
 			if (i<1){
 				//acc.push_back(data[j]);
 				temp_row.push_back(data[j]);
-				//std::cout << data[j]<< "\n";
+				//std::cout << data[j]<< std::endl;
 			}
 			else{
 				//acc[i].push_back(data[((i*num_rows)+j)]);
 				temp_row.push_back(data[((i*num_rows)+j)]);
-				//std::cout << data[(i*num_rows)+j]<< "\n";
+				//std::cout << data[(i*num_rows)+j]<< std::endl;
 			}
 		}
 		acc.push_back(temp_row);
@@ -62,7 +62,7 @@ void check_kreissig_bigmat(){
 	for (auto ii : uu.solution_set){
 		std::cout << "soln start: " << std::endl;
 		for (auto jj : ii){
-			std::cout << jj << "\n";
+			std::cout << jj << std::endl;
 		}
 	}
 	
@@ -71,7 +71,7 @@ void check_kreissig_bigmat(){
 
 void check_ky2013_example(){
 	
-	std::cout << "hi" << "\n";
+	std::cout << "hi" << std::endl;
 	// initialise input data
 	std::vector<std::vector<int> > acc;
 	std::vector<std::vector<int> >  out;
@@ -89,7 +89,7 @@ void check_ky2013_example(){
 	for (auto ii : uu.solution_set){
 		std::cout << "soln start: " << std::endl;
 		for (auto jj : ii){
-			std::cout << jj << "\n";
+			std::cout << jj << std::endl;;
 		}
 	}
 }
