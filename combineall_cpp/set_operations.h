@@ -2,6 +2,7 @@
 */
 #include <algorithm>
 #include <set>
+#include <vector>
 #include <iostream>
 
 /*template<typename T>
@@ -75,7 +76,33 @@ std::set<int> diff_set(const std::set<int>& A, const std::set<int>& B){
 
 std::set<int> union_set(const std::set<int>& A, const std::set<int>& B){
 	std::set<int> unionset;
-	std::set_union(A.begin(), A.end(), B.begin(), B.end(), 
-		std::inserter(unionset, unionset.end()));
+	std::set_union(A.begin(), A.end(), B.begin(), B.end(),
+		  std::inserter(unionset, unionset.end()));
 	return unionset;
 }
+
+
+std::vector<int> diff_set_vect(const std::vector<int>& A, const std::vector<int>& B){
+	std::set<int> Aset,Bset;
+	std::set<int> diff_result_set;
+	for (auto j : A){Aset.insert(j);}
+	for (auto k : B){Bset.insert(k);}
+	std::vector<int> difference;
+	diff_result_set = diff_set(Aset, Bset);
+	for (auto i : diff_result_set){difference.push_back(i);}
+	return difference;
+}
+
+
+std::vector<int> union_set_vect(const std::vector<int>& A, const std::vector<int>& B){
+	std::set<int> Aset,Bset;
+	std::set<int> union_set_out;
+	for (auto j : A){Aset.insert(j);}
+	for (auto k : B){Bset.insert(k);}
+	std::vector<int> unionvect;
+	union_set_out = union_set(Aset, Bset);
+	for (auto i : union_set_out){unionvect.push_back(i);}
+	return unionvect;
+}
+
+

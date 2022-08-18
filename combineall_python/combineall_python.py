@@ -84,7 +84,6 @@ def get_Nvl_and_Nnotvl(Acc:np.array, V:set, l:set):
                 Nvl.add(v)
                     
     return Nvl, Nnotvl
-            
 
 def combine_all(Acc, V, l, X):
     '''
@@ -108,14 +107,18 @@ def combine_all(Acc, V, l, X):
     #N_vl = get_Nvl(Acc, V, l)
     #N_not_vl = get_NOT_Nvl(Acc, V, l)
     N_vl, N_not_vl = get_Nvl_and_Nnotvl(Acc, V, l)
+    # print("Nvl: ", N_vl)
+    # print("notNvl ", N_not_vl)
     # print(f'l:{l}, X:{X}, V:{V}, N_vl:{N_vl}, N_notvl:{N_not_vl}, X:{X}')
     solutions_l = []
     if len(N_vl) == 0:
         solutions_l.append(l)
         #print(l)
     else:
+        print(f'pre diff: {V},\n N_not_vl: {N_not_vl}')
         # remove conflicting neighbour
         V = V.difference(N_not_vl)
+        print(f'post V: {V}')
         # unvisited compatible neighbours
         Nvl_wo_X = N_vl.difference(X)
         #print(f'   Vdiff: {V}, NvlwoX: {Nvl_wo_X}')
@@ -128,7 +131,6 @@ def combine_all(Acc, V, l, X):
                 for each in solution:
                     solutions_l.append(each)
             X = X.union(set([n]))
-            #print(f'X:{X}')
     return solutions_l
 #%%
 if __name__ == '__main__':
@@ -146,31 +148,31 @@ if __name__ == '__main__':
     # Check the known case from the KY2013 paper
     assert(qq==expected_output)
     
-    #%%
-    start = time.perf_counter_ns()
-    [ combine_all(A, set(range(6)), set([]), set([])) for i in range(10**2)]
-    stop = time.perf_counter_ns()
-    # print(f'Duration per run 6x6 : {(stop-start)/1e9/10**2} s')
-    #%%
-    # Load the bigA matrix
-    big_CC = np.loadtxt('bigA.txt', delimiter=',')
-    #%%
-    # Now run and test for performance 
-    start = time.perf_counter_ns()
-    print('\n    Starting big A run....\n')
-    n_nodes = big_CC.shape[0]
-    for ii in range(1):
-        qqr = combine_all(big_CC, set(range(n_nodes)), set([]), set([]))
-    stop = time.perf_counter_ns()   
-    print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/1} s')
-    print(len(qqr))
+    # #%%
+    # start = time.perf_counter_ns()
+    # [ combine_all(A, set(range(6)), set([]), set([])) for i in range(10**2)]
+    # stop = time.perf_counter_ns()
+    # # print(f'Duration per run 6x6 : {(stop-start)/1e9/10**2} s')
+    # #%%
+    # # Load the bigA matrix
+    # big_CC = np.loadtxt('bigA.txt', delimiter=',')
+    # #%%
+    # # Now run and test for performance 
+    # start = time.perf_counter_ns()
+    # print('\n    Starting big A run....\n')
+    # n_nodes = big_CC.shape[0]
+    # for ii in range(1):
+    #     qqr = combine_all(big_CC, set(range(n_nodes)), set([]), set([]))
+    # stop = time.perf_counter_ns()   
+    # print(f'Duration per run {n_nodes}x{n_nodes} : {(stop-start)/1e9/1} s')
+    # print(len(qqr))
     
-    # Write solution to csv file
-    with open('python_solutions.csv' , 'w') as csvfile:
-        for soln in qqr:
-            for each in soln:
-                csvfile.write(str(each)+',')
-            csvfile.write('\n')
+    # # Write solution to csv file
+    # with open('python_solutions.csv' , 'w') as csvfile:
+    #     for soln in qqr:
+    #         for each in soln:
+    #             csvfile.write(str(each)+',')
+    #         csvfile.write('\n')
 
             
     
