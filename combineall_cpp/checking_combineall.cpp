@@ -234,22 +234,21 @@ int main(){
 	// Run the 'small' 6 node case
 	// std::cout << "Repeat 6 node case 100 times..." << std::endl;
 
-	int nruns = 100;
-	// Timer timer1;
+	int nruns = 1000;
+	Timer timer1;
 	check_combine_all_full(nruns); // Repeat the case described in the paper 100 times.
-	// std::cout << "Done with 100 reps of 6 node case" << timer1.elapsed()<< "s for 100 runs" << std::endl;
+	std::cout << "Done with " <<nruns<< " reps of 6 node case" << timer1.elapsed()<< "s for" << nruns<< " runs" << std::endl;
 
 	// Run the 'big' 20 node case
-	/*std::cout << "Running 20 node case once" << std::endl;
+	std::cout << "Running 20 node case 100 X" << std::endl;
 	Timer timer2;
 	check_combine_all_big();
 
-	std::cout << "Done running 20 node case ..." << timer2.elapsed() <<" s" << std::endl;*/
-
+	std::cout << "Done running 20 node case ..." << timer2.elapsed() <<" s" << std::endl;
 	
-	std::cout << "Very large matrix test" << "\n";
+	//std::cout << "Very large matrix test" << "\n";
 	
-	check_combine_very_big();
+	//check_combine_very_big();
 	
 
 }

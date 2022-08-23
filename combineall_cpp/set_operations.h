@@ -93,7 +93,6 @@ std::vector<int> diff_set_vect(const std::vector<int>& A, const std::vector<int>
 	return difference;
 }
 
-
 std::vector<int> union_set_vect(const std::vector<int>& A, const std::vector<int>& B){
 	std::set<int> Aset,Bset;
 	std::set<int> union_set_out;
@@ -105,4 +104,33 @@ std::vector<int> union_set_vect(const std::vector<int>& A, const std::vector<int
 	return unionvect;
 }
 
-
+// NOT used as diff_set_vect_v2 is much slower than diff_set_vect (1.61 times slower)>
+std::vector<int> diff_set_vect_v2(const std::vector<int>& A, const std::vector<int>& B){
+	/*Checks to see which elements of A are unique, and not present in B. 
+	>>> diff_set_vect_v2({1,2,3}, {1,3,9})
+	Output:
+	>>> {2}
+	*/
+	std::vector<int> difference;
+	bool a_in_B;
+	
+	if (B.empty()){
+		for (auto a : A){difference.push_back(a);}
+		return difference;
+	}
+	else if (A.empty()){
+		return difference;
+	}
+	else{
+		for (auto a : A){
+			for (auto b : B){
+			// https://stackoverflow.com/a/5998594/4955732
+			a_in_B = std::find(B.begin(), B.end(), a) != B.end();
+			if (a_in_B){
+				difference.push_back(a);
+				}
+			}
+		}		
+	}
+	return difference;
+}

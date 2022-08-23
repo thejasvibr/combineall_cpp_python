@@ -147,7 +147,7 @@ void check_ky2013_eg(){
 	
 }
 
-int main(){
+/*int main(){
 	std::vector<int> yy;
 	std::vector<int> aa = {1,2,3};
 	std::vector<int> bb = {9,10,11};
@@ -171,4 +171,4 @@ int main(){
 	
 	return 0;
 	
-}
+}*/

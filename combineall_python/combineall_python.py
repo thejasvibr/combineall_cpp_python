@@ -147,7 +147,7 @@ if __name__ == '__main__':
     expected_output = [{0,1,2}, {0,1,3}, {1,2,4,5}, {1,3,5}]
     # Check the known case from the KY2013 paper
     assert(qq==expected_output)
-    
+
     # #%%
     # start = time.perf_counter_ns()
     # [ combine_all(A, set(range(6)), set([]), set([])) for i in range(10**2)]

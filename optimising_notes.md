@@ -115,13 +115,17 @@ After some basic optimisation where do we stand? The difference really starts to
 | 192     | (too long?) | 47000    | ------------   |
 
 ## Moral of the story: when translating code to another language - be extra careful
+As usual, it turns out there was an issue with where I'd put the brackets in a for loop. The problem was that I'd only tested the 'simple' small matrix cases and moved on.
+However, the more detailed cases with >10 matrices is where the implementations started differing -- classic bug. 
 
 
+## Naive C++ code isn't much faster than Python code: an independent example. 
+To my luck, having developed a bit of familiarity with C++ with this project, I also began looking deeper into Martin Kreissig's code.
+I managed to run it with minor alterations (writing the results to a file so comparisons could be made), and voila I now had an independent
+C++ implementation for comparison. 
 
+Turns out MK's C++ code wasn't much faster than the Python code, exactly like what I'd seen with my own C++ code. MK's code looked a lot like my code in that
+everything was pass by value. Perhaps the combination of recursion and pass-by-value made the code slow??
 
- 
-
-
-
-
-
+After optimisation C++ is indeed faster. However, having thought this, I now wonder how much faster the Python code will be after running it through 
+Cython. This may be worth a try - because it also keeps us closer to the Python world.
