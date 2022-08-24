@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 #include "combineall.h"
+#include "Timer.h"
 
 std::vector<std::vector<int> > create_acc_graph(std::string filepath){
 	
@@ -99,7 +100,9 @@ int main(int argc, char* argv[]){
 		V_t.insert(k);
 	}
 	std::cout << "Starting CombineAll run..." << std::endl;
+	Timer timer1;
 	solutions = combine_all(acc, V_t, ll, X);
+	std::cout << "The run took:" << timer1.elapsed() << std::endl;
 	std::cout << "Done with CombineAll run..." << std::endl;
 	
 	write_combineall_solutions(solutions);
